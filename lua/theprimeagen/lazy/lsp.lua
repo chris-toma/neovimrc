@@ -28,7 +28,7 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "rust_analyzer",
-                "tsserver",
+                "gopls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -48,6 +48,17 @@ return {
                                     globals = { "vim", "it", "describe", "before_each", "after_each" },
                                 }
                             }
+                        }
+                    }
+                end,
+                ["gopls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.gopls.setup {
+                        capabilities = capabilities,
+                        settings = {
+                            gopls = {
+                                completeUnimported = true,
+                            },
                         }
                     }
                 end,
